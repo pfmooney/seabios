@@ -1,0 +1,35 @@
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+
+#
+# Copyright 2019 Joyent, Inc.
+#
+
+PROTO_AREA =	$(PWD)/../../../proto
+STRAP_AREA =	$(PWD)/../../../proto.strap
+
+#MAKE_ARGS +=	CROSS_PREFIX=$(STRAP_AREA)/usr/gnu/bin/g
+MAKE_ARGS +=	CROSS_PREFIX=$(PWD)/prefix/
+
+all: prefix
+	$(MAKE) $(MAKE_ARGS)
+
+prefix:
+	mkdir -p prefix
+	ln -sf $(STRAP_AREA)/usr/bin/gcc prefix/gcc
+	ln -sf $(STRAP_AREA)/usr/gnu/bin/gas prefix/as
+	ln -sf $(STRAP_AREA)/usr/gnu/bin/gld prefix/ld
+	ln -sf $(STRAP_AREA)/usr/gnu/bin/gobjcopy prefix/objcopy
+	ln -sf $(STRAP_AREA)/usr/gnu/bin/gobjdump prefix/objdump
+	ln -sf $(STRAP_AREA)/usr/gnu/bin/gstrip prefix/strip
+
+clean: prefix
+	$(MAKE) $(MAKE_ARGS) $@
+	rm -r prefix
+.PHONY: clean
+
+.DEFAULT: prefix
+	$(MAKE) $(MAKE_ARGS) $@

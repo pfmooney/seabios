@@ -226,10 +226,15 @@ int scsi_rep_luns_scan(struct drive_s *tmp_drive, scsi_add_lun add_lun)
         .drive_fl = tmp_drive,
         .command = CMD_SCSI,
         .count = 1,
+#ifndef __sun
         .cdbcmd = &cdb,
+#endif
     };
     struct cdbres_report_luns *resp;
 
+#ifdef __sun
+    op.cdbcmd = &cdb;
+#endif
     ASSERT32FLAT();
 
     while (1) {

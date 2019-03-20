@@ -25,7 +25,7 @@ STRIP=$(CROSS_PREFIX)strip
 PYTHON=python
 CPP=cpp
 IASL:=iasl
-LD32BIT_FLAG:=-melf_i386
+LD32BIT_FLAG:=-melf_i386_sol2
 
 # Source files
 SRCBOTH=misc.c stacks.c output.c string.c block.c cdrom.c disk.c mouse.c kbd.c \
