@@ -11,8 +11,10 @@
 PROTO_AREA =	$(PWD)/../../../proto
 STRAP_AREA =	$(PWD)/../../../proto.strap
 
+MAX_JOBS ?= 1
+
 #MAKE_ARGS +=	CROSS_PREFIX=$(STRAP_AREA)/usr/gnu/bin/g
-MAKE_ARGS +=	CROSS_PREFIX=$(PWD)/prefix/
+MAKE_ARGS +=	CROSS_PREFIX=$(PWD)/prefix/ -j $(MAX_JOBS)
 
 all: prefix
 	$(MAKE) $(MAKE_ARGS)
@@ -33,3 +35,11 @@ clean: prefix
 
 .DEFAULT: prefix
 	$(MAKE) $(MAKE_ARGS) $@
+
+# obligatory
+world:
+
+install:
+
+manifest:
+	touch $(DESTDIR)/$(DESTNAME)
